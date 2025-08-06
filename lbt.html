@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .wrapper {
+            width: 450px;
+            height: 300px;
+            margin: 0 auto;
+            background-color: #88ffcf;
+            overflow: hidden;
+        }
+
+        .content {
+            width: 900px;
+            font-size: 0;
+            /* transform: translate(-300px); */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="content"></div>
+    </div>
+
+    <script>
+        let img = ["https://tse3-mm.cn.bing.net/th/id/OIP-C.OhUOhPbzdELTIt6QY9fV0AHaEo?w=292&h=182&c=7&r=0&o=7&cb=thfc1&dpr=1.5&pid=1.7&rm=3", "https://tse4-mm.cn.bing.net/th/id/OIP-C.yZCiVRQe6TVApZ0xDnj40gAAAA?w=213&h=180&c=7&r=0&o=7&cb=thfc1&dpr=1.5&pid=1.7&rm=3", "https://tse4-mm.cn.bing.net/th/id/OIP-C.4ZnI4izWPVqQkGeCFt4IWgHaE7?w=295&h=196&c=7&r=0&o=7&cb=thfc1&dpr=1.5&pid=1.7&rm=3"]
+        const content = document.querySelector('.content')
+        for (i of img) {
+            const el = document.createElement("img")
+            el.style.width = '450px'
+            el.style.height = '300px'
+            el.src = i
+            content.appendChild(el)
+        }
+        setInterval(() => {
+            const img = document.querySelector("img")
+            content.style.transform = "translate(-450px)"
+            content.style.transition = "all 0.5s"
+            content.addEventListener('transitionend', function () {
+                content.appendChild(img)
+                content.style.transform = ""
+                content.style.transition = ""
+            })
+        }, 2500);
+    </script>
+</body>
+
+</html>
