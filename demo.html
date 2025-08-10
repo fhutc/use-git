@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            width: 400px;
+            height: 650px;
+            /* border: 1px solid #000; */
+            position: relative;
+        }
+
+        .demo {
+            width: 400px;
+            height: 650px;
+            border: 1px solid #000;
+            transform-origin: left;
+            position: absolute;
+        }
+
+        .hidden {
+            font-size: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="demo hidden">1</div>
+        <div class="demo hidden">2</div>
+        <div class="demo hidden">3</div>
+        <div class="demo hidden">4</div>
+        <div class="demo hidden">5</div>
+        <div class="demo hidden">6</div>
+        <div class="demo hidden">7</div>
+        <div class="demo hidden">8</div>
+        <div class="demo hidden">9</div>
+        <div class="demo">10</div>
+    </div>
+
+    <script>
+        const demos = document.querySelectorAll('.demo')
+        const container = document.querySelector('.container')
+        console.log(demos);
+        container.addEventListener('click', function (e) {
+            if (e.target.style.transform) {
+                e.target.style.transform = ''
+            } else {
+                e.target.style.transform = 'rotateY(-180deg)';
+                e.target.style.transition = '2s';
+                e.target.addEventListener('transitionend', function () {
+                    e.target.style.transition = '';
+                    e.target.style.transition = '2s';
+                })
+            }
+        })
+        // demo.addEventListener('click', function (e) {
+        //     demo.style.transform = 'rotateY(-180deg)';
+        //     demo.style.transition = '2s';
+        //     demo.addEventListener('transitionend', function () {
+        //         demo.style.transform = ''
+        //         demo.style.transition = '';
+        //     })
+        // })
+    </script>
+</body>
+
+</html>
