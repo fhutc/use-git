@@ -18,11 +18,20 @@
             align-items: center;
         }
 
-        .container {
+        .lcontainer {
+            width: 0;
+            height: 650px;
+            border: 1px solid transparent;
+            position: relative;
+            transition: .5s;
+        }
+
+        .rcontainer {
             width: 400px;
             height: 650px;
-            /* border: 1px solid #000; */
+            border: 1px solid transparent;
             position: relative;
+            transition: .5s;
         }
 
         .demo {
@@ -40,33 +49,77 @@
 </head>
 
 <body>
-    <div class="container">
-        <div class="demo hidden">1</div>
-        <div class="demo hidden">2</div>
-        <div class="demo hidden">3</div>
-        <div class="demo hidden">4</div>
+    <div class="lcontainer"></div>
+    <div class="rcontainer">
+        <div class="demo">1</div>
+        <div class="demo">2</div>
+        <div class="demo">3</div>
+        <!-- <div class="demo hidden">4</div>
         <div class="demo hidden">5</div>
         <div class="demo hidden">6</div>
         <div class="demo hidden">7</div>
         <div class="demo hidden">8</div>
         <div class="demo hidden">9</div>
-        <div class="demo">10</div>
+        <div class="demo">10</div> -->
     </div>
-
     <script>
         const demos = document.querySelectorAll('.demo')
-        const container = document.querySelector('.container')
+        const lcontainer = document.querySelector('.lcontainer')
+        const rcontainer = document.querySelector('.rcontainer')
         console.log(demos);
-        container.addEventListener('click', function (e) {
-            if (e.target.style.transform) {
-                e.target.style.transform = ''
-            } else {
+        let status = false
+        rcontainer.addEventListener('click', function (e) {
+            if (!status) {
+                status = true
+                lcontainer.style.width = '400px'
+                e.target.style.transformOrigin = 'left';
+                // if (e.target.style.transform) {
+                //     e.target.style.transform = ''
+                // } else {
                 e.target.style.transform = 'rotateY(-180deg)';
                 e.target.style.transition = '2s';
                 e.target.addEventListener('transitionend', function () {
+                    // console.log(e.target);
+                    lcontainer.style.width = '400px'
                     e.target.style.transition = '';
-                    e.target.style.transition = '2s';
+                    e.target.style.transform = 'rotateY(-180deg) translate(100%, 0px)'
+                    e.target.style.transformOrigin = 'right'
+                    lcontainer.appendChild(e.target)
+                    rcontainer.onclick = e.target.ontransitionend = null
+                    status = false
+                    if (!rcontainer.children.length) {
+                        rcontainer.style.width = '0px'
+                    }
                 })
+            } else {
+                return
+            }
+            // if (!lcontainer.children.length) {
+            //     lcontainer.style.width = '0px'
+            // }
+        })
+        lcontainer.addEventListener('click', function (e) {
+            if (!status) {
+                status = true
+                rcontainer.style.width = '400px'
+                e.target.style.transform = 'rotateY(0deg) translate(100%, 0px)';
+                e.target.style.transition = '2s';
+                e.target.addEventListener('transitionend', function () {
+                    // console.log(rcontainer.style.width);
+                    rcontainer.style.width = '400px'
+                    e.target.style.transition = '';
+                    e.target.style.transform = ''
+                    e.target.style.transformOrigin = 'left'
+                    rcontainer.appendChild(e.target)
+                    lcontainer.onclick = e.target.ontransitionend = null
+                    // console.log();
+                    status = false
+                    if (!lcontainer.children.length) {
+                        lcontainer.style.width = '0px'
+                    }
+                })
+            } else {
+                return
             }
         })
         // demo.addEventListener('click', function (e) {
